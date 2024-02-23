@@ -6,11 +6,12 @@ import styled from "styled-components";
 
 
 const ProductsCardsContainer = styled.div`
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 256px);
+    grid-gap: 30px;
+    width: 100%;
+    margin-top: 30px;
     justify-content: center;
-    padding: 40px;
 `;
 
 
@@ -32,3 +33,8 @@ export function ProductsList() {
         </ProductsCardsContainer>
     );
 }
+// display: flex;
+    // gap: 30px;
+    // flex-wrap: wrap;
+    // justify-content: center;
+    // padding: 40px;

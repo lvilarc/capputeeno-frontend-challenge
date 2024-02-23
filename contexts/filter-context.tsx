@@ -6,13 +6,15 @@ import { useState, ReactNode, createContext } from "react";
 
 export const FilterContext = createContext({
     search: '',
-    page: 0,
+    page: 1,
     type: FilterType.ALL,
-    priority: PriorityType.NEWS,
+    priority: PriorityType.POPULARITY,
+    pages: 1,
     setSearch: (value: string) => { },
     setPage: (value: number) => { },
     setType: (value: FilterType) => { },
-    setPriority: (value: PriorityType) => { }
+    setPriority: (value: PriorityType) => { },
+    setPages: (value: number) => { }
 })
 
 interface ProviderProps {
@@ -22,9 +24,10 @@ interface ProviderProps {
 
 export function FilterContextProvider({ children }: ProviderProps) {
     const [search, setSearch] = useState('');
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [type, setType] = useState(FilterType.ALL);
-    const [priority, setPriority] = useState(PriorityType.NEWS);
+    const [priority, setPriority] = useState(PriorityType.POPULARITY);
+    const [pages, setPages] = useState(4);
 
     return (
         <FilterContext.Provider
@@ -33,10 +36,12 @@ export function FilterContextProvider({ children }: ProviderProps) {
                 page,
                 type,
                 priority,
+                pages,
                 setSearch,
                 setPage,
                 setType,
-                setPriority
+                setPriority,
+                setPages
             }}>
             {children}
         </FilterContext.Provider>

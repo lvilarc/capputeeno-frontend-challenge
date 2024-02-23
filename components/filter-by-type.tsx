@@ -22,7 +22,7 @@ const ListItem = styled.li<FilterItemProps>`
     font-size: 18px;
     font-weight: ${props => props.selected ? '600' : '400'};
     text-transform: uppercase;
-    color: ${props => props.selected ? '#41414d' : '#737380;'};
+    color: ${props => props.selected ? '#41414d' : '#737380'};
     border-bottom: ${props => props.selected ? '4px solid rgba(255, 165, 133, 1)' : ''};
     cursor: pointer;
 `;

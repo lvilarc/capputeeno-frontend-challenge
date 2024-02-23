@@ -12,6 +12,7 @@ import styles from "./page.module.css";
 
 
 import { ProductsList } from "@/components/products.list";
+import { PaginationBar } from '@/components/pagination-bar';
 
 
 export default function Home() {
@@ -20,6 +21,7 @@ export default function Home() {
     <QueryClientProvider client={queryClient}>
       <main className={styles.main}>
         <FilterBar/>
+        <PaginationBar/>
         <ProductsList/>
       </main>
     </QueryClientProvider>
