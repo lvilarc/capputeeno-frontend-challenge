@@ -8,7 +8,7 @@ export const FilterContext = createContext({
     search: '',
     page: 1,
     type: FilterType.ALL,
-    priority: PriorityType.POPULARITY,
+    priority: PriorityType.NONE,
     pages: 1,
     setSearch: (value: string) => { },
     setPage: (value: number) => { },
@@ -26,8 +26,10 @@ export function FilterContextProvider({ children }: ProviderProps) {
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(1);
     const [type, setType] = useState(FilterType.ALL);
-    const [priority, setPriority] = useState(PriorityType.POPULARITY);
-    const [pages, setPages] = useState(4);
+    const [priority, setPriority] = useState(PriorityType.NONE);
+    const [pages, setPages] = useState(1);
+
+   
 
     return (
         <FilterContext.Provider
@@ -41,7 +43,7 @@ export function FilterContextProvider({ children }: ProviderProps) {
                 setPage,
                 setType,
                 setPriority,
-                setPages
+                setPages,
             }}>
             {children}
         </FilterContext.Provider>

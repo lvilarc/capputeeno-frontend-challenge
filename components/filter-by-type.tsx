@@ -28,10 +28,11 @@ const ListItem = styled.li<FilterItemProps>`
 `;
 
 export function FilterByType() {
-    const { type, setType } = useFilter();
+    const { type, setType, setPage } = useFilter();
 
     const handleChangeType = (value: FilterType) => {
         setType(value);
+        setPage(1);
     }
     return (
         <div>

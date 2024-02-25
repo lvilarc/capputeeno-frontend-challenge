@@ -1,6 +1,7 @@
 "use client"
 
 import { formatPrice } from "@/utils/format-price"
+
 import styled from "styled-components";
 
 
@@ -19,7 +20,8 @@ const CardContainer = styled.div`
     height: 378px;
     display: flex;
     flex-direction: column;
-    border-radius: 10px;
+    border-radius: 10px 10px 6px 6px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
     cursor: pointer;
     img {
         
@@ -32,6 +34,7 @@ const CardContainer = styled.div`
         font-family: inherit;
         font-size: 16px;
         font-weight: 300;
+        color: rgba(65, 65, 77, 1);
     }
     div {
         gap: 6px;
@@ -52,6 +55,7 @@ const CardContainer = styled.div`
         font-family: inherit;
         font-size: 14px;
         font-weight: 600;
+        color: rgba(9, 9, 10, 1);
     }
 `;
 
@@ -59,14 +63,17 @@ const CardContainer = styled.div`
 export function ProductCard(props: ProductCardProps) {
     const price = formatPrice(props.price);
     return (
-        <CardContainer>
-            <img src={props.img}></img>
-            <div>
-                <h1>{props.title}</h1>
-                <div></div>
-                <p>{price}</p>
-            </div>
+     
+            <CardContainer>
+                <img src={props.img}></img>
+                <div>
+                    <h1>{props.title}</h1>
+                    <div></div>
+                    <p>{price}</p>
+                </div>
 
-        </CardContainer>
+            </CardContainer>
+       
+
     )
 }

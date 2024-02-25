@@ -20,6 +20,7 @@ const ShoppingBagCount = styled.span`
 `;
 const Container = styled.div`
     position: relative; 
+    cursor: pointer;
 `;
 
 export function ShoppingBagControl() {

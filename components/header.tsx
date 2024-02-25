@@ -4,9 +4,12 @@ import styled from "styled-components"
 import { Saira_Stencil_One } from "next/font/google";
 import { SearchBarWIcon } from "./search-bar";
 import { ShoppingBagControl } from "./shoppingbag-control";
+import Link from 'next/link';
+import { useFilter } from "@/hooks/useFilter";
+
 
 const sairaStencil = Saira_Stencil_One({
-    weight: ['400'], 
+    weight: ['400'],
     subsets: ["latin"]
 });
 
@@ -29,20 +32,22 @@ const TagHeader = styled.header`
     }
 `;
 const Logo = styled.a`
+    cursor: pointer;
     color: rgba(93, 93, 109, 1);
     font-weight: 400;
     font-size: 40px;
 `;
 
 export function Header(props: HeaderProps) {
-    return(
+    return (
         <TagHeader>
-            <Logo className={sairaStencil.className}>capputeeno</Logo>
+            <Link href="/" style={{ textDecoration: 'none', color: 'inherit'}}>
+                <Logo className={sairaStencil.className}>capputeeno</Logo>
+            </Link>
             <div>
                 <SearchBarWIcon placeholder="Procurando por algo específico?"></SearchBarWIcon>
-                <ShoppingBagControl/>
+                <ShoppingBagControl />
             </div>
-
         </TagHeader>
     )
 }

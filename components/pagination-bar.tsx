@@ -47,15 +47,18 @@ export function PaginationBar() {
 
     const handleClick = (index: number) => {
         setPage(index);
+        if(index != page) { window.scrollTo({ top: 0, behavior: 'smooth' });}
     };
     const handlePrevPage = () => {
         if (page > 1) {
             setPage(page - 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
     const handleNextPage = () => {
         if (page < pages) {
             setPage(page + 1);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     };
 

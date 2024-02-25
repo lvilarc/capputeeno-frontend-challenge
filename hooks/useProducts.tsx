@@ -29,15 +29,3 @@ export function useProducts() {
     }
 }
 
-`query {
-    allProducts {
-     name
-      sales
-      category
-      image_url
-      created_at
-      price_in_cents
-      id
-    }
-}
-`

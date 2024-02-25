@@ -5,5 +5,6 @@ export interface Product {
     image_url: string,
     created_at: string,
     price_in_cents: number,
-    id: string
+    id: string,
+    description: string
 }

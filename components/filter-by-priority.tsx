@@ -1,7 +1,7 @@
 "use client"
 
 import { useFilter } from "@/hooks/useFilter";
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import styled from "styled-components"
 import { ArrowIcon } from "./arrow-icon";
 import { PriorityType } from "@/types/priority-type";
@@ -57,22 +57,57 @@ const PriorityFilter = styled.ul`
 
 export function FilterByPriority() {
     const [isOpen, setIsOpen] = useState(false);
-    const { setPriority } = useFilter();
+    const { setPriority, setPage, priority } = useFilter();
+    const [filterLabel, setFilterLabel] = useState('');
 
-    const handleOpen = () => setIsOpen(prevState => !prevState);
+    useEffect(()=> {
+        if (priority === PriorityType.NONE) {
+            setFilterLabel("Organizar por")
+        }
+        if (priority === PriorityType.BIGGEST_PRICE) {
+            setFilterLabel("Preço: Maior - menor")
+        }
+        if (priority === PriorityType.MINOR_PRICE) {
+            setFilterLabel("Preço: Menor - maior")
+        }
+        if (priority === PriorityType.NEWS) {
+            setFilterLabel("Novidades")
+        }
+        if (priority === PriorityType.POPULARITY) {
+            setFilterLabel("Mais vendidos")
+        }
+    },[]);
 
-    const [filterLabel, setFilterLabel] = useState("Organizar por")
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (!event.target || !(event.target instanceof Element)) return;
+
+            if (!event.target.closest('.priority-filter-button')) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside);
+        };
+    }, []);
+
+    const handleOpen = () => { setIsOpen(prevState => !prevState) };
 
     const handlePriority = (value: PriorityType, text: string) => {
         setPriority(value);
         setIsOpen(false);
         setFilterLabel(text);
+        setPage(1);
     }
+
 
 
     return (
         <FilterContainer>
-            <button onClick={handleOpen}>
+            <button className="priority-filter-button" onClick={handleOpen}>
                 {filterLabel}
                 <ArrowIcon />
             </button>
