@@ -3,6 +3,9 @@
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { ShoppingBagIcon } from "./shoppingbag-icon";
 import styled from "styled-components";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { useFilter } from "@/hooks/useFilter";
 
 
 const ShoppingBagCount = styled.span`
@@ -23,17 +26,38 @@ const Container = styled.div`
     cursor: pointer;
 `;
 
+
+
 export function ShoppingBagControl() {
-    const { value } = useLocalStorage('shoppingbag-items')
-    console.log(value)
+    const { shoppingBagItems, setShoppingBagItems } = useFilter();
+    // if (props.ids.length === 0) {
+    //     setShoppingBagItems([]);
+    // }
+   
+
+    
+
+
+
+    useEffect(() => {
+        const storedItems = localStorage.getItem('shoppingbag-items');
+        if (storedItems) {
+            setShoppingBagItems(JSON.parse(storedItems));
+           
+        }
+    }, []);
+
 
 
 
 
     return (
-        <Container>
-            <ShoppingBagIcon />
-            {value.length && <ShoppingBagCount>{value.length}</ShoppingBagCount>}
-        </Container>
+        <Link href='/cart' style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Container>
+                <ShoppingBagIcon />
+                {shoppingBagItems && shoppingBagItems.length > 0 && <ShoppingBagCount>{shoppingBagItems.length}</ShoppingBagCount>}
+            </Container>
+        </Link>
+
     )
 }

@@ -3,6 +3,7 @@
 import { FilterType } from "@/types/filter-type";
 import { PriorityType } from "@/types/priority-type";
 import { useState, ReactNode, createContext } from "react";
+import { CartItem } from "@/types/cart-item";
 
 export const FilterContext = createContext({
     search: '',
@@ -10,11 +11,13 @@ export const FilterContext = createContext({
     type: FilterType.ALL,
     priority: PriorityType.NONE,
     pages: 1,
+    shoppingBagItems: [] as CartItem[],
     setSearch: (value: string) => { },
     setPage: (value: number) => { },
     setType: (value: FilterType) => { },
     setPriority: (value: PriorityType) => { },
-    setPages: (value: number) => { }
+    setPages: (value: number) => { },
+    setShoppingBagItems: (value: CartItem[]) => { }
 })
 
 interface ProviderProps {
@@ -28,6 +31,7 @@ export function FilterContextProvider({ children }: ProviderProps) {
     const [type, setType] = useState(FilterType.ALL);
     const [priority, setPriority] = useState(PriorityType.NONE);
     const [pages, setPages] = useState(1);
+    const [shoppingBagItems, setShoppingBagItems] = useState<CartItem[]>([]);
 
    
 
@@ -39,11 +43,13 @@ export function FilterContextProvider({ children }: ProviderProps) {
                 type,
                 priority,
                 pages,
+                shoppingBagItems,
                 setSearch,
                 setPage,
                 setType,
                 setPriority,
                 setPages,
+                setShoppingBagItems
             }}>
             {children}
         </FilterContext.Provider>

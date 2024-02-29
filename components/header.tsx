@@ -6,6 +6,8 @@ import { SearchBarWIcon } from "./search-bar";
 import { ShoppingBagControl } from "./shoppingbag-control";
 import Link from 'next/link';
 import { useFilter } from "@/hooks/useFilter";
+import { useEffect, useState } from "react";
+
 
 
 const sairaStencil = Saira_Stencil_One({
@@ -14,9 +16,7 @@ const sairaStencil = Saira_Stencil_One({
 });
 
 
-interface HeaderProps {
 
-}
 
 const TagHeader = styled.header`
     display: flex;
@@ -38,15 +38,29 @@ const Logo = styled.a`
     font-size: 40px;
 `;
 
-export function Header(props: HeaderProps) {
+export function Header() {
+
+    // const [ids, setIds] = useState<string[]>();
+
+    // useEffect(() => {
+    //     const storedItems = localStorage.getItem('shoppingbag-items');
+    //     if (storedItems) {
+    //         const parsedItems: string[] = JSON.parse(storedItems);
+    //         const ids = parsedItems.map(item => item[0]);
+    //         setIds(ids);
+    //     } else {
+    //         setIds([]);
+    //     }
+    // }, []);
+
     return (
         <TagHeader>
-            <Link href="/" style={{ textDecoration: 'none', color: 'inherit'}}>
+            <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Logo className={sairaStencil.className}>capputeeno</Logo>
             </Link>
             <div>
                 <SearchBarWIcon placeholder="Procurando por algo específico?"></SearchBarWIcon>
-                <ShoppingBagControl />
+                <ShoppingBagControl/>
             </div>
         </TagHeader>
     )

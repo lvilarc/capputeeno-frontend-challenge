@@ -25,7 +25,6 @@ export function ProductsList() {
     const { page, setPages } = useFilter();
 
     const productsPerPage = 12;
-    console.log(data)
 
     useEffect(() => {
         setPages(calculateTotalPages());

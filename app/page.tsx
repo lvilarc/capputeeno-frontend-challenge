@@ -11,7 +11,7 @@ import styles from "./page.module.css";
 
 
 
-import { ProductsList } from "@/components/products.list";
+import { ProductsList } from "@/components/products-list";
 import { PaginationBar } from '@/components/pagination-bar';
 import { Footer } from '@/components/footer';
 

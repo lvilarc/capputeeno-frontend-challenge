@@ -10,6 +10,10 @@ import styled from "styled-components";
 import { useProduct } from "@/hooks/useProduct";
 import { formatPrice } from '@/utils/format-price';
 import { ShoppingBagWhiteIcon } from '@/components/shoppingbag-white-icon';
+import { useEffect, useState } from 'react';
+import { useFilter } from '@/hooks/useFilter';
+import { DoneIcon } from '@/components/done-icon';
+import { CartItem } from '@/types/cart-item';
 
 const queryClient = new QueryClient()
 
@@ -65,74 +69,100 @@ const ProductContainer = styled.div`
         font-weight: 400;
         color: rgba(65, 65, 77, 1);
     }
-    button {
-        cursor: pointer;
-        display: flex;
-        color: rgba(245, 245, 250, 1);
-        border: none;
-        background: rgba(17, 93, 140, 1);
-        border-radius: 4px;
-        font-size: 16px;
-        font-weight: 500;
-        font-family: inherit;
-        text-transform: uppercase;
-        display: flex;
-        gap: 14px;
-        width: 448px;
-        height: 44px;
-        justify-content: center;
-        align-items: center;
-        svg {
-            width: 24px;
-            height: 24px;
-        }
-    }
+    
 `;
+
+const Button = styled.button<ButtonProps>`
+    cursor: pointer;
+    display: flex;
+    color: rgba(245, 245, 250, 1);
+    border: none;
+    background: ${props => props.added ? 'rgba(81, 184, 83, 1);' : 'rgba(17, 93, 140, 1)'};
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: inherit;
+    text-transform: uppercase;
+    display: flex;
+    gap: 14px;
+    width: 448px;
+    height: 44px;
+    justify-content: center;
+    align-items: center;
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+`
 
 const ProductInfoContainer = styled.div`
     display: flex; 
     flex-direction: column; 
     height: 580px;
+    width: 448px;
     justify-content: space-between;
 `;
 
+interface ButtonProps {
+    added: boolean;
+}
+
 const Product = ({ params }: { params: { productId: string } }) => {
+    const { setShoppingBagItems } = useFilter();
+    const [isAdded, setIsAdded] = useState<boolean>(false);
 
-    // console.log(params.productId);
+    useEffect(() => {
+        let shoppingbag: CartItem[] = JSON.parse(localStorage.getItem('shoppingbag-items') || '[]');
 
-    // const [productId, setProductId] = useState(params.productId);
+
+        const isAdded = shoppingbag.some(item => item[0] === params.productId);
+
+        setIsAdded(isAdded);
+    }, []);
 
     const { data } = useProduct(params.productId);
-    console.log(data)
-    console.log('oiioioioi')
 
-    // const price = formatPrice(data?.price_in_cents);
-    // const queryClient = new QueryClient()
+    const handleAddToCart = () => {
+        if (!isAdded) {
+            let shoppingbag: CartItem[] = JSON.parse(localStorage.getItem('shoppingbag-items') || '[]');
+
+            if (!shoppingbag.some(item => item[0] === params.productId)) {
+                shoppingbag.push([params.productId, 1]);
+                localStorage.setItem('shoppingbag-items', JSON.stringify(shoppingbag));
+                setShoppingBagItems(shoppingbag)
+                setIsAdded(true);
+            } else {
+                setIsAdded(false);
+            }
+        }
+
+    };
+
 
     return (
-        <QueryClientProvider client={queryClient}>
-            <ProductPageContainer>
-                <BackArrow navigate='/' />
-                <ProductContainer>
-                    <img src={data?.image_url}></img>
-                    <ProductInfoContainer>
-                        <div>
-                            <p>Caneca</p>
-                            <h1>{data?.name}</h1>
-                            <h2>{data?.price_in_cents ? formatPrice(data.price_in_cents) : 'Price not available'}</h2>
-                            <h3>*Frete de R$40,00 para todo o Brasil. Grátis para compras acima de R$900,00.</h3>
-                            <h4>Descrição</h4>
-                            <h5>{data?.description}</h5>
-                        </div>
-                        <button>
-                            <ShoppingBagWhiteIcon />
-                            Adicionar ao carrinho
-                        </button>
-                    </ProductInfoContainer>
-                </ProductContainer>
 
-            </ProductPageContainer>
-        </QueryClientProvider>
+        <ProductPageContainer>
+            <BackArrow navigate='/' />
+            <ProductContainer>
+                <img src={data?.image_url}></img>
+                <ProductInfoContainer>
+                    <div>
+                        <p>Caneca</p>
+                        <h1>{data?.name}</h1>
+                        <h2>{data?.price_in_cents ? formatPrice(data.price_in_cents) : 'Price not available'}</h2>
+                        <h3>*Frete de R$40,00 para todo o Brasil. Grátis para compras acima de R$900,00.</h3>
+                        <h4>Descrição</h4>
+                        <h5>{data?.description}</h5>
+                    </div>
+                    <Button added={isAdded} onClick={handleAddToCart}>
+                        {isAdded ? <DoneIcon /> : <ShoppingBagWhiteIcon />}
+                        {isAdded ? 'Produto Adicionado' : 'Adicionar ao carrinho'}
+                    </Button>
+                </ProductInfoContainer>
+            </ProductContainer>
+
+        </ProductPageContainer>
+
 
 
     )
