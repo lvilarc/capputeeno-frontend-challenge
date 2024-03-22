@@ -6,6 +6,7 @@ import styled from "styled-components"
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useFilter } from "@/hooks/useFilter";
 import { useEffect, useState } from "react";
+import { formatPrice } from "@/utils/format-price";
 
 
 
@@ -131,8 +132,12 @@ const HelpLinks = styled.div`
 
 
 export default function CartPage() {
+    const deliveryTax = 4000;
+
     const { shoppingBagItems } = useFilter();
     const [ids, setIds] = useState<string[]>();
+    const [totalPrice, setTotalPrice] = useState(0);
+
 
     // useEffect(() => {
     //     const storedItems = localStorage.getItem('shoppingbag-items');
@@ -143,25 +148,41 @@ export default function CartPage() {
     //     }
     // }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         if (shoppingBagItems.length > 0) {
             const ids = shoppingBagItems.map(item => item[0]);
             setIds(ids)
+
+
+            const tPrice: number = shoppingBagItems
+                .map(([_, quantity, price]) => quantity * price) // Multiplica a quantidade pelo preço
+                .reduce((acc, productTotalPrice) => acc + productTotalPrice, 0);
+            setTotalPrice(tPrice)
+
+        } else {
+            setIds([]);
+            setTotalPrice(0);
         }
-    },[])
+    }, [shoppingBagItems])
+
+
 
     return (
-     
+
         <CartPageContainer>
             <CartContainer>
                 <BackArrow navigate="/"></BackArrow>
                 <TextContainer>
                     <h1>Seu carrinho</h1>
-                    <div>
-                        <h2>Total (3 produtos) </h2><h3>R$161,00</h3>
-                    </div>
+                    {ids && ids.length > 0 &&
+                        <div>
+                            <h2>Total ({ids.length} produtos) </h2>
+                            <h3>{formatPrice(totalPrice)}</h3>
+                        </div>
+                    }
+
                 </TextContainer>
-               
+
                 {ids && ids.length > 0 && <ShoppingBagProductsListWrapper ids={ids}/>}
 
 
@@ -175,16 +196,16 @@ export default function CartPage() {
 
                         <DivSpaceBetween>
                             <h2>Subtotal de produtos</h2>
-                            <h3>R$ 161,00</h3>
+                            <h3>{formatPrice(totalPrice)}</h3>
                         </DivSpaceBetween>
                         <DivSpaceBetween>
                             <h2>Entrega</h2>
-                            <h3>R$ 40,00</h3>
+                            <h3>{formatPrice(deliveryTax)}</h3>
                         </DivSpaceBetween>
                         <LineDiv></LineDiv>
                         <DivSpaceBetweenBold>
                             <h2>Total</h2>
-                            <h3>R$ 201,00</h3>
+                            <h3>{formatPrice(totalPrice+deliveryTax)}</h3>
                         </DivSpaceBetweenBold>
 
                         <CheckoutButton>Finalizar a compra</CheckoutButton>
@@ -203,6 +224,6 @@ export default function CartPage() {
 
             </OrderSummaryContainer>
         </CartPageContainer>
-      
+
     )
 }

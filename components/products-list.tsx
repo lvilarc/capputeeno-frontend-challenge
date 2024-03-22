@@ -46,7 +46,7 @@ export function ProductsList() {
         const endIndex = startIndex + productsPerPage;
 
         return data.slice(startIndex, endIndex).map(product => (
-            <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit'}}>
+            <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit'}} key={product.id}>
                 <ProductCard
                     key={product.id}
                     title={product.name}

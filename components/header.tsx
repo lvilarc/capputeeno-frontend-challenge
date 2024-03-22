@@ -55,9 +55,9 @@ export function Header() {
 
     return (
         <TagHeader>
-            <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            {/* <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}> */}
                 <Logo className={sairaStencil.className}>capputeeno</Logo>
-            </Link>
+            {/* </Link> */}
             <div>
                 <SearchBarWIcon placeholder="Procurando por algo específico?"></SearchBarWIcon>
                 <ShoppingBagControl/>

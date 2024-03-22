@@ -33,6 +33,8 @@ export function FilterContextProvider({ children }: ProviderProps) {
     const [pages, setPages] = useState(1);
     const [shoppingBagItems, setShoppingBagItems] = useState<CartItem[]>([]);
 
+    
+
    
 
     return (

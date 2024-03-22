@@ -3,10 +3,12 @@
 import styled from "styled-components"
 import { BinIcon } from "./bin-icon";
 import { ArrowIcon } from "./arrow-icon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PlusIcon } from "./plus-icon";
 import { MinusIcon } from "./minus-icon";
 import { formatPrice } from "@/utils/format-price";
+import { useFilter } from "@/hooks/useFilter";
+import { CartItem } from "@/types/cart-item";
 
 
 
@@ -114,17 +116,50 @@ const PlusButton = styled.button`
         }
 `;
 
+const PriceDiv = styled.div`
+    display: flex;
+    h5 {
+        margin-right: 10px;
+        color: rgba(9, 9, 10, 1);
+        font-size: 16px;
+        font-weight: 400;
+    }
+`;
+
 
 
 interface ShoppingBagProductCardProps {
+    id: string,
     img: string,
     title: string,
     price: number,
-    description: string
+    description: string,
+    removeItemFromData: (itemId: string) => void
 }
 
 
 export function ShoppingBagProductCard(props: ShoppingBagProductCardProps) {
+    const { shoppingBagItems, setShoppingBagItems } = useFilter();
+
+    const [quantity, setQuantity] = useState<number>(0);
+
+    const price = formatPrice(props.price);
+
+    const [finalPrice, setFinalPrice] = useState(formatPrice(0));
+
+    useEffect(() => {
+        const storedData = localStorage.getItem('shoppingbag-items');
+
+        if (storedData) {
+            const parsedData: [string, number][] = JSON.parse(storedData);
+            const item = parsedData.find(([itemId]) => itemId === props.id);
+            if (item) {
+                setQuantity(item[1]); // Define a quantidade do item específico
+                setFinalPrice(`${item[1]}x ${formatPrice(props.price)}`);
+            }
+        }
+    }, [props.id]);
+
     // // IDs do carrinho
     // const cartItems: string[] = ["838db35d-9719-4c01-bc1e-333b28449e94", "4b3222c5-6d5b-4c0d-9ecf-6cf738ae8f1a"];
 
@@ -144,7 +179,49 @@ export function ShoppingBagProductCard(props: ShoppingBagProductCardProps) {
     // const storedCartData: [string, number][] = JSON.parse(localStorage.getItem('cartData') || '[]');
 
     // console.log(storedCartData); // Dados do carrinho armazenados no localStorage
-    const price = formatPrice(props.price);
+
+
+    function handleDelete() {
+        // Filter out the item with the specified ID
+        const updatedItems = shoppingBagItems.filter(([itemId]) => itemId !== props.id);
+
+        // Update shoppingBagItems state with the filtered array
+        setShoppingBagItems(updatedItems);
+
+        // Update localStorage with the filtered array
+        localStorage.setItem('shoppingbag-items', JSON.stringify(updatedItems));
+
+        props.removeItemFromData(props.id);
+    }
+
+    // Função para incrementar a quantidade de um item no carrinho de compras
+    const handleIncrement = () => {
+        const updatedItems: CartItem[] = shoppingBagItems.map(([itemId, quantity, price_in_cents]) => {
+            if (itemId === props.id) {
+                setQuantity(prevQuantity => prevQuantity + 1);
+                return [itemId, quantity + 1, price_in_cents];
+
+            }
+            return [itemId, quantity, price_in_cents];
+        });
+
+        setShoppingBagItems(updatedItems);
+        localStorage.setItem('shoppingbag-items', JSON.stringify(updatedItems));
+    };
+
+    const handleDecrement = () => {
+        const updatedItems: CartItem[] = shoppingBagItems.map(([itemId, quantity, price_in_cents]) => {
+            if (itemId === props.id && quantity > 1) {
+                setQuantity(prevQuantity => prevQuantity - 1);
+                return [itemId, quantity - 1, price_in_cents];
+            }
+            return [itemId, quantity, price_in_cents];
+        });
+
+        setShoppingBagItems(updatedItems);
+        localStorage.setItem('shoppingbag-items', JSON.stringify(updatedItems));
+    };
+
 
 
     return (
@@ -154,7 +231,7 @@ export function ShoppingBagProductCard(props: ShoppingBagProductCardProps) {
                 <div>
                     <TitleContainer>
                         <h1>{props.title}</h1>
-                        <button>
+                        <button onClick={handleDelete}>
                             <BinIcon />
                         </button>
                     </TitleContainer>
@@ -162,11 +239,15 @@ export function ShoppingBagProductCard(props: ShoppingBagProductCardProps) {
                 </div>
                 <PriceContainer>
                     <div>
-                        <MinusButton><MinusIcon /></MinusButton>
-                        <h4>1</h4>
-                        <PlusButton><PlusIcon /></PlusButton>
+                        <MinusButton onClick={handleDecrement}><MinusIcon /></MinusButton>
+                        <h4>{quantity}</h4>
+                        <PlusButton onClick={handleIncrement}><PlusIcon /></PlusButton>
                     </div>
-                    <h3>{price}</h3>
+                    <PriceDiv>
+                        <h5>{quantity + 'x'}</h5>
+                        <h3>{price}</h3>
+                    </PriceDiv>
+
                 </PriceContainer>
 
             </TextContainer>

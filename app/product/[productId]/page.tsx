@@ -77,7 +77,7 @@ const Button = styled.button<ButtonProps>`
     display: flex;
     color: rgba(245, 245, 250, 1);
     border: none;
-    background: ${props => props.added ? 'rgba(81, 184, 83, 1);' : 'rgba(17, 93, 140, 1)'};
+    background: ${props => props.added === "true" ? 'rgba(81, 184, 83, 1)' : 'rgba(17, 93, 140, 1)'};
     border-radius: 4px;
     font-size: 16px;
     font-weight: 500;
@@ -93,7 +93,7 @@ const Button = styled.button<ButtonProps>`
         width: 24px;
         height: 24px;
     }
-`
+`;
 
 const ProductInfoContainer = styled.div`
     display: flex; 
@@ -104,7 +104,7 @@ const ProductInfoContainer = styled.div`
 `;
 
 interface ButtonProps {
-    added: boolean;
+    added: "true" | "false"; // Accepts only "true" or "false" strings
 }
 
 const Product = ({ params }: { params: { productId: string } }) => {
@@ -127,7 +127,9 @@ const Product = ({ params }: { params: { productId: string } }) => {
             let shoppingbag: CartItem[] = JSON.parse(localStorage.getItem('shoppingbag-items') || '[]');
 
             if (!shoppingbag.some(item => item[0] === params.productId)) {
-                shoppingbag.push([params.productId, 1]);
+                if (data) {
+                    shoppingbag.push([params.productId, 1, data.price_in_cents]);
+                }
                 localStorage.setItem('shoppingbag-items', JSON.stringify(shoppingbag));
                 setShoppingBagItems(shoppingbag)
                 setIsAdded(true);
@@ -136,6 +138,18 @@ const Product = ({ params }: { params: { productId: string } }) => {
             }
         }
 
+    };
+
+    const getCategoryName = (category: string): string => {
+        switch (category) {
+            case 'mugs':
+                return 'Caneca';
+            case 't-shirts':
+                return 'Camiseta';
+            // Adicione mais casos conforme necessário para outras categorias
+            default:
+                return category;
+        }
     };
 
 
@@ -147,14 +161,14 @@ const Product = ({ params }: { params: { productId: string } }) => {
                 <img src={data?.image_url}></img>
                 <ProductInfoContainer>
                     <div>
-                        <p>Caneca</p>
+                    <p>{data ? getCategoryName(data.category) : ''}</p>
                         <h1>{data?.name}</h1>
                         <h2>{data?.price_in_cents ? formatPrice(data.price_in_cents) : 'Price not available'}</h2>
                         <h3>*Frete de R$40,00 para todo o Brasil. Grátis para compras acima de R$900,00.</h3>
                         <h4>Descrição</h4>
                         <h5>{data?.description}</h5>
                     </div>
-                    <Button added={isAdded} onClick={handleAddToCart}>
+                    <Button added={isAdded ? "true" : "false"} onClick={handleAddToCart}>
                         {isAdded ? <DoneIcon /> : <ShoppingBagWhiteIcon />}
                         {isAdded ? 'Produto Adicionado' : 'Adicionar ao carrinho'}
                     </Button>

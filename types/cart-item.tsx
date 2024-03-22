@@ -1,1 +1,1 @@
-export type CartItem = [string, number];
+export type CartItem = [string, number, number];
