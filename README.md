@@ -4,7 +4,7 @@ Welcome,
 
 I am pleased to present my solution to the [frontend challenge](https://github.com/Rocketseat/frontend-challenge) proposed by Rocketseat.
 
-![Protótipo](https://storage.googleapis.com/xesque-dev/challenge-images/prototipo.png?42)
+![capputeeno](https://github.com/lvilarc/capputeeno-frontend-challenge/assets/73657485/e96720d5-18a6-4569-bbde-edc03e14562e)
 
 The solution features the following functionalities:
 - [ ] Product catalog with pagination
