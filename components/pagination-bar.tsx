@@ -1,8 +1,8 @@
 "use client"
 
 import styled from "styled-components"
-import { LeftArrowIcon } from "./left-arrow-icon";
-import { RightArrowIcon } from "./right-arrow-icon";
+import { LeftArrowIcon } from "./icons/left-arrow-icon";
+import { RightArrowIcon } from "./icons/right-arrow-icon";
 import { useFilter } from "@/hooks/useFilter";
 
 interface SelectedPageProps {
@@ -14,7 +14,7 @@ const PaginationBarContainer = styled.div`
     display: flex;
     margin-top: 14px;
     justify-content: flex-end;
-    padding: 0 94px;
+    padding: 0px 14vw;
     ul {
         display: flex;
         list-style-type: none;
@@ -37,9 +37,6 @@ const PaginationItem = styled.li<SelectedPageProps>`
         margin-left: 10px;
     }
 `;
-
-
-
 
 
 export function PaginationBar() {
@@ -76,3 +73,4 @@ export function PaginationBar() {
         </PaginationBarContainer>
     )
 }
+

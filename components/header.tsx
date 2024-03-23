@@ -4,9 +4,6 @@ import styled from "styled-components"
 import { Saira_Stencil_One } from "next/font/google";
 import { SearchBarWIcon } from "./search-bar";
 import { ShoppingBagControl } from "./shoppingbag-control";
-import Link from 'next/link';
-import { useFilter } from "@/hooks/useFilter";
-import { useEffect, useState } from "react";
 
 
 
@@ -15,13 +12,10 @@ const sairaStencil = Saira_Stencil_One({
     subsets: ["latin"]
 });
 
-
-
-
 const TagHeader = styled.header`
     display: flex;
     align-items: center;
-    padding: 10px 394px;
+    padding: 10px 4vw;
     background-color: rgba(255, 255, 255, 1);
     justify-content: space-between;
     div {
@@ -30,34 +24,26 @@ const TagHeader = styled.header`
         justify-content: center;
         gap: 22px;
     }
+    
 `;
+
+
+
 const Logo = styled.a`
     cursor: pointer;
     color: rgba(93, 93, 109, 1);
     font-weight: 400;
     font-size: 40px;
+    @media (max-width: 706px) {
+        font-size: 34px;
+    }
 `;
 
 export function Header() {
-
-    // const [ids, setIds] = useState<string[]>();
-
-    // useEffect(() => {
-    //     const storedItems = localStorage.getItem('shoppingbag-items');
-    //     if (storedItems) {
-    //         const parsedItems: string[] = JSON.parse(storedItems);
-    //         const ids = parsedItems.map(item => item[0]);
-    //         setIds(ids);
-    //     } else {
-    //         setIds([]);
-    //     }
-    // }, []);
-
+    
     return (
         <TagHeader>
-            {/* <Link href="/" style={{ textDecoration: 'none', color: 'inherit' }}> */}
                 <Logo className={sairaStencil.className}>capputeeno</Logo>
-            {/* </Link> */}
             <div>
                 <SearchBarWIcon placeholder="Procurando por algo específico?"></SearchBarWIcon>
                 <ShoppingBagControl/>
@@ -65,3 +51,5 @@ export function Header() {
         </TagHeader>
     )
 }
+
+

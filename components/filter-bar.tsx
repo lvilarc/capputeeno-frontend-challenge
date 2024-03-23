@@ -9,7 +9,8 @@ const FilterBarContainer = styled.div`
     display: flex;
     justify-content: space-between;
     width: 100%;
-    padding: 0px 94px;
+    padding: 0px 14vw;
+    white-space: nowrap;
 `;
 
 export function FilterBar() {
@@ -21,3 +22,4 @@ export function FilterBar() {
     )
 
 }
+

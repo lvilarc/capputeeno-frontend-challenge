@@ -1,11 +1,10 @@
 "use client"
 
 import styled from "styled-components"
-import { BinIcon } from "./bin-icon";
-import { ArrowIcon } from "./arrow-icon";
+import { BinIcon } from "./icons/bin-icon";
 import { useEffect, useState } from "react";
-import { PlusIcon } from "./plus-icon";
-import { MinusIcon } from "./minus-icon";
+import { PlusIcon } from "./icons/plus-icon";
+import { MinusIcon } from "./icons/minus-icon";
 import { formatPrice } from "@/utils/format-price";
 import { useFilter } from "@/hooks/useFilter";
 import { CartItem } from "@/types/cart-item";
@@ -23,6 +22,9 @@ const CardContainer = styled.div`
         width: 256px;
         height: 211px;
     }
+    @media (max-width: 1228px) {
+        width: 516px;
+    }
     
 `;
 const TextContainer = styled.div`
@@ -31,13 +33,21 @@ const TextContainer = styled.div`
     height: 100%;
     flex-direction: column;
     justify-content: space-between;
+`;
+
+const TitleDescriptionContainer = styled.div`
     h2 {
         margin-top: 14px;
         font-size: 12px;
         font-weight: 400;
         color: rgba(65, 65, 77, 1);
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 `;
+
 const TitleContainer = styled.div`
     display: flex;
     width: 100%;
@@ -47,6 +57,10 @@ const TitleContainer = styled.div`
         font-size: 20px;
         font-weight: 300;
         color: rgba(65, 65, 77, 1);
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
     button {
         all: unset;
@@ -128,6 +142,7 @@ const PriceDiv = styled.div`
 
 
 
+
 interface ShoppingBagProductCardProps {
     id: string,
     img: string,
@@ -160,41 +175,19 @@ export function ShoppingBagProductCard(props: ShoppingBagProductCardProps) {
         }
     }, [props.id]);
 
-    // // IDs do carrinho
-    // const cartItems: string[] = ["838db35d-9719-4c01-bc1e-333b28449e94", "4b3222c5-6d5b-4c0d-9ecf-6cf738ae8f1a"];
-
-    // // Valores numéricos associados a cada ID do carrinho
-    // const itemValues: { [key: string]: number } = {
-    //     "838db35d-9719-4c01-bc1e-333b28449e94": 10,
-    //     "4b3222c5-6d5b-4c0d-9ecf-6cf738ae8f1a": 20,
-    // };
-
-    // // Crie uma matriz de pares [id, value]
-    // const cartData: [string, number][] = cartItems.map(id => [id, itemValues[id]]);
-
-    // // Converta para JSON e armazene no localStorage
-    // localStorage.setItem('cartData', JSON.stringify(cartData));
-
-    // // Para recuperar os dados do localStorage:
-    // const storedCartData: [string, number][] = JSON.parse(localStorage.getItem('cartData') || '[]');
-
-    // console.log(storedCartData); // Dados do carrinho armazenados no localStorage
+    
 
 
     function handleDelete() {
-        // Filter out the item with the specified ID
         const updatedItems = shoppingBagItems.filter(([itemId]) => itemId !== props.id);
 
-        // Update shoppingBagItems state with the filtered array
         setShoppingBagItems(updatedItems);
 
-        // Update localStorage with the filtered array
         localStorage.setItem('shoppingbag-items', JSON.stringify(updatedItems));
 
         props.removeItemFromData(props.id);
     }
 
-    // Função para incrementar a quantidade de um item no carrinho de compras
     const handleIncrement = () => {
         const updatedItems: CartItem[] = shoppingBagItems.map(([itemId, quantity, price_in_cents]) => {
             if (itemId === props.id) {
@@ -222,13 +215,11 @@ export function ShoppingBagProductCard(props: ShoppingBagProductCardProps) {
         localStorage.setItem('shoppingbag-items', JSON.stringify(updatedItems));
     };
 
-
-
     return (
         <CardContainer>
             <img src={props.img}></img>
             <TextContainer>
-                <div>
+                <TitleDescriptionContainer>
                     <TitleContainer>
                         <h1>{props.title}</h1>
                         <button onClick={handleDelete}>
@@ -236,7 +227,7 @@ export function ShoppingBagProductCard(props: ShoppingBagProductCardProps) {
                         </button>
                     </TitleContainer>
                     <h2>{props.description}</h2>
-                </div>
+                </TitleDescriptionContainer>
                 <PriceContainer>
                     <div>
                         <MinusButton onClick={handleDecrement}><MinusIcon /></MinusButton>

@@ -1,4 +1,4 @@
-import { BackArrowIcon } from "@/components/back-arrow-icon";
+import { BackArrowIcon } from "@/components/icons/back-arrow-icon";
 
 import styled from "styled-components";
 import Link from 'next/link'

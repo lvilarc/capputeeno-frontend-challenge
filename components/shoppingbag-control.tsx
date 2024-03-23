@@ -1,10 +1,9 @@
 "use client"
 
-import { useLocalStorage } from "@/hooks/useLocalStorage";
-import { ShoppingBagIcon } from "./shoppingbag-icon";
+import { ShoppingBagIcon } from "./icons/shoppingbag-icon";
 import styled from "styled-components";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useFilter } from "@/hooks/useFilter";
 
 
@@ -30,15 +29,7 @@ const Container = styled.div`
 
 export function ShoppingBagControl() {
     const { shoppingBagItems, setShoppingBagItems } = useFilter();
-    // if (props.ids.length === 0) {
-    //     setShoppingBagItems([]);
-    // }
-   
-
-    
-
-
-
+  
     useEffect(() => {
         const storedItems = localStorage.getItem('shoppingbag-items');
         if (storedItems) {
@@ -46,10 +37,6 @@ export function ShoppingBagControl() {
            
         }
     }, []);
-
-
-
-
 
     return (
         <Link href='/cart' style={{ textDecoration: 'none', color: 'inherit' }}>

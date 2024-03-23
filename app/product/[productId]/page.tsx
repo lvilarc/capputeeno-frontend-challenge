@@ -9,10 +9,10 @@ import styled from "styled-components";
 
 import { useProduct } from "@/hooks/useProduct";
 import { formatPrice } from '@/utils/format-price';
-import { ShoppingBagWhiteIcon } from '@/components/shoppingbag-white-icon';
+import { ShoppingBagWhiteIcon } from '@/components/icons/shoppingbag-white-icon';
 import { useEffect, useState } from 'react';
 import { useFilter } from '@/hooks/useFilter';
-import { DoneIcon } from '@/components/done-icon';
+import { DoneIcon } from '@/components/icons/done-icon';
 import { CartItem } from '@/types/cart-item';
 
 const queryClient = new QueryClient()
@@ -20,11 +20,16 @@ const queryClient = new QueryClient()
 const ProductPageContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 100%;
-    padding: 30px 394px;
+    padding: 30px 0px;
+    margin: 0 auto;
+    width: 1131px;
+    @media (max-width: 1237px) {
+        width: 860px;
+    }
+    
+ 
 `;
 const ProductContainer = styled.div`
-    gap: 30px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -32,6 +37,10 @@ const ProductContainer = styled.div`
     img {
         width: 640px;
         height: 580px;
+        @media (max-width: 1237px) {
+            width: 441px;
+            height: 400px;
+        }
     }
     p {
         font-size: 16px;
@@ -43,6 +52,9 @@ const ProductContainer = styled.div`
         font-size: 32px;
         font-weight: 300;
         color: background: rgba(65, 65, 77, 1);
+        @media (max-width: 1237px) {
+            margin-top: 2px;
+        }
     }
     h2 {
         margin-top: 2px;
@@ -62,6 +74,10 @@ const ProductContainer = styled.div`
         font-weight: 500;
         text-transform: uppercase;
         color: rgba(115, 115, 128, 1);
+        @media (max-width: 1237px) {
+            margin-top: 20px;
+        }
+       
     }
     h5 {
         margin-top: 8px;
@@ -85,7 +101,7 @@ const Button = styled.button<ButtonProps>`
     text-transform: uppercase;
     display: flex;
     gap: 14px;
-    width: 448px;
+    width: 100%;
     height: 44px;
     justify-content: center;
     align-items: center;
@@ -101,10 +117,16 @@ const ProductInfoContainer = styled.div`
     height: 580px;
     width: 448px;
     justify-content: space-between;
+    @media (max-width: 1237px) {
+        width: 400px;
+        height: 400px;
+    }
+   
+    
 `;
 
 interface ButtonProps {
-    added: "true" | "false"; // Accepts only "true" or "false" strings
+    added: "true" | "false";
 }
 
 const Product = ({ params }: { params: { productId: string } }) => {
@@ -146,22 +168,19 @@ const Product = ({ params }: { params: { productId: string } }) => {
                 return 'Caneca';
             case 't-shirts':
                 return 'Camiseta';
-            // Adicione mais casos conforme necessário para outras categorias
             default:
                 return category;
         }
     };
 
-
     return (
-
         <ProductPageContainer>
             <BackArrow navigate='/' />
             <ProductContainer>
                 <img src={data?.image_url}></img>
                 <ProductInfoContainer>
                     <div>
-                    <p>{data ? getCategoryName(data.category) : ''}</p>
+                        <p>{data ? getCategoryName(data.category) : ''}</p>
                         <h1>{data?.name}</h1>
                         <h2>{data?.price_in_cents ? formatPrice(data.price_in_cents) : 'Price not available'}</h2>
                         <h3>*Frete de R$40,00 para todo o Brasil. Grátis para compras acima de R$900,00.</h3>
@@ -174,14 +193,9 @@ const Product = ({ params }: { params: { productId: string } }) => {
                     </Button>
                 </ProductInfoContainer>
             </ProductContainer>
-
         </ProductPageContainer>
-
-
-
     )
 }
-
 
 export default function ProductWrapper({ params }: { params: { productId: string } }) {
     return (

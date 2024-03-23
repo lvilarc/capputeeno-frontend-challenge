@@ -26,7 +26,7 @@ const fetcher = (productIds: string[]): AxiosPromise<CartFetchResponse> => {
         ${productsQuery}
     }`;
 
-    console.log('GraphQL Query:', query); 
+  
 
     return axios.post(
         API_URL,
@@ -47,7 +47,7 @@ export function useCart(productIds: string[]) {
         queryFn: () => fetcher(productIds),
         queryKey: ['cart']
     })
-    // console.log('data', data?.data.data)
+   
     return {
         data: data?.data?.data
     }

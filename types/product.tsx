@@ -8,7 +8,3 @@ export interface Product {
     id: string,
     description: string
 }
-
-export interface ProductInCart extends Product {
-    quantity: number
-}

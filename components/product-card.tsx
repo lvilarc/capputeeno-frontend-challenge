@@ -5,9 +5,6 @@ import { formatPrice } from "@/utils/format-price"
 import styled from "styled-components";
 
 
-
-
-
 interface ProductCardProps {
     img: string,
     title: string,

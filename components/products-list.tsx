@@ -16,8 +16,19 @@ const ProductsCardsContainer = styled.div`
     margin-top: 30px;
     margin-bottom: 30px;
     justify-content: center;
+    padding: 0px 14vw;
+    @media (max-width: 1149px) {
+        padding: 0px 6vw;
+    }
 `;
 
+const NoProductsMessage = styled.div`
+    display: flex;
+    margin: 0 auto;
+    font-size: 16px;
+    text-align: center;
+    padding: 100px 0px;
+`;
 
 
 export function ProductsList() {
@@ -39,7 +50,7 @@ export function ProductsList() {
 
     const renderProductsForPage = () => {
         if (!data || data.length === 0) {
-            return null;
+            return null
         }
 
         const startIndex = (page - 1) * productsPerPage;
@@ -57,9 +68,20 @@ export function ProductsList() {
         ));
     };
 
-    return (
-        <ProductsCardsContainer>
-            {renderProductsForPage()}
-        </ProductsCardsContainer>
+    const products = renderProductsForPage();
+
+   return (
+        <>
+            {products && (
+                <ProductsCardsContainer>
+                    {products}
+                </ProductsCardsContainer>
+            )}
+            {!products && (
+                <NoProductsMessage>Sem resultados...</NoProductsMessage>
+            )}
+        </>
     );
 }
+
+

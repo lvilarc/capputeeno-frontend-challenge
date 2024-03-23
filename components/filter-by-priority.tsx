@@ -1,14 +1,10 @@
 "use client"
 
 import { useFilter } from "@/hooks/useFilter";
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
-import { ArrowIcon } from "./arrow-icon";
+import { ArrowIcon } from "./icons/arrow-icon";
 import { PriorityType } from "@/types/priority-type";
-
-
-
-
 
 
 const FilterContainer = styled.div`
@@ -52,8 +48,6 @@ const PriorityFilter = styled.ul`
         margin-top: 8px;
     }
 `;
-
-
 
 export function FilterByPriority() {
     const [isOpen, setIsOpen] = useState(false);
@@ -102,8 +96,6 @@ export function FilterByPriority() {
         setFilterLabel(text);
         setPage(1);
     }
-
-
 
     return (
         <FilterContainer>
