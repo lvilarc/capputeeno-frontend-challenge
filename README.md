@@ -21,7 +21,7 @@ The solution features the following functionalities:
 - Local storage to manage the shopping cart
 - **GraphQL API** by running the command `yarn start` in the `api` folder
 - React Query's memory cache.
-- Responsive design from desktop to a minimum width resolution of 960 pixels.
+- Responsive design for desktop, down to a minimum width resolution of 960 pixels.
 
 ## 🖥️ Installation
 
