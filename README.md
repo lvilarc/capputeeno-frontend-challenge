@@ -13,13 +13,15 @@ The solution features the following functionalities:
 - [ ] Adding and removing products from the shopping cart
 - [ ] Checkout process
 
-## 📋 Instructions
+## 📋 More info
 
-- Follow [this prototype](https://www.figma.com/file/rET9F2CeUEJdiVN7JRu993/E-commerce---capputeeno?node-id=680%3A6449)
-- Use Next.js and Typescript
-- Do the styling with styled-components
-- Use local storage to manage the shopping cart
-- Consume our **GraphQL API** by running the command `yarn start` in the `api` folder
+- [Figma prototype](https://www.figma.com/file/rET9F2CeUEJdiVN7JRu993/E-commerce---capputeeno?node-id=680%3A6449)
+- Next.js and Typescript
+- Styling with styled-components
+- Local storage to manage the shopping cart
+- **GraphQL API** by running the command `yarn start` in the `api` folder
+- React Query's memory cache.
+- Responsive design from desktop to a minimum width resolution of 960 pixels.
 
 ## 🖥️ Installation
 
