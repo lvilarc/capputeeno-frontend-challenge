@@ -1,62 +1,67 @@
-![image](https://user-images.githubusercontent.com/40845824/121069742-3accdb00-c7a4-11eb-87d0-3dc47e433762.png)
+# 🚀 Capputeeno front end challenge
 
+Welcome,
 
-# 🚀 Front end challenge
-
-Bem-vindo(a). Este é o desafio Front end!
-
-O objetivo deste desafio é avaliar suas habilidades de programação.
-Quando sua solução estiver pronta, basta responder o e-mail que recebeu com o link do seu repo aqui no Github!
-Em seguida, enviaremos o feedback e as instruções dos próximos passos!
-
-Caso tenha alguma dúvida, nós estamos disponíveis no email *recrutamento@rocketseat.com.br*
-Bom desafio!
-
-> ⚠️ **É importante que o seu repo esteja público, caso contrário não iremos conseguir avaliar sua resposta**
-
-# 🧠 Contexto
+I am pleased to present my solution to the [frontend challenge](https://github.com/Rocketseat/frontend-challenge) proposed by Rocketseat.
 
 ![Protótipo](https://storage.googleapis.com/xesque-dev/challenge-images/prototipo.png?42)
 
-O desafio será implementar um e-commerce para venda de canecas e camisetas que deverá ter as seguintes funcionalidades:
-- [ ] Catálogo de produtos com paginação
-- [ ] Filtragem produtos por categoria
-- [ ] Busca por nome do produto
-- [ ] Adicionar e remover produtos do carrinho
-- [ ] Finalizar compra
+The solution features the following functionalities:
+- [ ] Product catalog with pagination
+- [ ] Filtering products by category
+- [ ] Product name search
+- [ ] Adding and removing products from the shopping cart
+- [ ] Checkout process
 
-## 📋 Instruções
+## 📋 Instructions
 
-Chegou a hora de colocar a mão na massa!
+- Follow [this prototype](https://www.figma.com/file/rET9F2CeUEJdiVN7JRu993/E-commerce---capputeeno?node-id=680%3A6449)
+- Use Next.js and Typescript
+- Do the styling with styled-components
+- Use local storage to manage the shopping cart
+- Consume our **GraphQL API** by running the command `yarn start` in the `api` folder
 
-- Siga [esse protótipo](https://www.figma.com/file/rET9F2CeUEJdiVN7JRu993/E-commerce---capputeeno?node-id=680%3A6449)
-- Utilize Next.js e Typescript
-- Faça a estilização com styled-components
-- Utilize o local storage para gerenciar o carrinho
-- Por favor, inclua no README as instruções de instalação do projeto
-- Sinta-se livre para incluir quaisquer observações
-- Consuma nossa **API GraphQL** rodando o comando `yarn start` na pasta `api`
+## 🖥️ Installation
 
-## ✔️ Critérios de Avaliação
+### Frontend
 
-Além dos requisitos levantados acima, iremos olhar para os seguintes critérios durante a correção do desafio:
+1. Clone this repo
+```bash
+git clone https://github.com/lvilarc/capputeeno-frontend-challenge.git
+```
 
-- Gerenciamento de estado
-- Componentização
-- Responsividade
-- Preocupação com usabilidade
-- Preocupação com acessibilidade
-- Testes e2e
-- Padrões de código
-- Padrão de commits (_Conventional_)
+2. Go to the project folder
+```bash
+cd capputeeno-frontend-challenge
+cd capputeeno
+```
 
-## 😎 Seria legal
-- Fazer deploy na vercel ou em outro local de sua preferência e disponibilizar um link de visualização, se necessário utilize esse servidor para a API GraphQL:  https://rocketseat-frontend-challenge.herokuapp.com/
-- Testes unitários
-- Utilização de cache do Next.js
+3. Install dependencies
+```bash
+npm install
+```
 
----
+3. Run Frontend
+```bash
+npm run dev
+```
 
-_O desafio acima foi cuidadosamente construído para propósitos de avaliação apenas. Já possuimos uma funcionalidade similar na nossa plataforma._
+### Running the API
 
-Made with 💜 at Rocketseat
+
+2. Go to the API folder
+
+```bash
+cd capputeeno-frontend-challenge
+cd api
+```
+
+3. Install dependencies
+```bash
+npm install
+```
+
+3. Run start
+```bash
+npm start
+```
